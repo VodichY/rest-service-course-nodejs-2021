@@ -1,6 +1,24 @@
-const getAll = async () => {
-  // TODO: mock implementation. should be replaced during task development
-  return [];
+const userModel = require("./user.model");
+
+const MemoryDB = {
+  'Boards': [],
+  'Columns': [],
+  'Tasks': [],
+  'Users': []
 };
 
-module.exports = { getAll };
+const getAll = async () => {
+  return MemoryDB.Users;
+};
+
+const getUserById = async (userId) => {
+  return MemoryDB.Users.find(user => user.id === userId);
+};
+
+const postUser = async (userJson) => {
+  let User = new userModel(userJson); 
+  MemoryDB.Users.push(User);
+  return User;
+};
+
+module.exports = { getAll, getUserById, postUser};
