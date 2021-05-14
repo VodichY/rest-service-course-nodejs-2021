@@ -22,7 +22,10 @@ const Data = {
   const deleteObj = async (id, objType) => {    
     const obj = Data[objType].find(elem => elem.id === id);
     const indexObj = Data[objType].indexOf(obj);
-    return Data[objType].splice(indexObj,1).length;
+    if (indexObj === -1) {
+      return false;
+    }
+    return Data[objType].splice(indexObj,1) instanceof Array;
   }; 
 
-  module.exports = { Data, getAll, getById, createObj, updateObj, deleteObj};
+  module.exports = { Data, getAll, getById, createObj, updateObj, deleteObj };

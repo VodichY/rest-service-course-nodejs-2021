@@ -25,11 +25,10 @@ router.route('/:userId').put(async (req, res) => {
 router.route('/:userId').delete(async (req, res) => {
   const users = await usersService.deleteUser(req.params.userId);
   if (users) {
-    res.status(204).json([]);
+    res.status(204).json();
   } else {
-    res.status(404).json([]);
-  }
-  
+    res.status(404).json();
+  }  
 });
 
 module.exports = router;
