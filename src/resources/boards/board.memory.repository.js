@@ -17,10 +17,8 @@ const deleteBoard = async (boardId) => {
   if (isDeleted) {
     const Tasks = await MemoryDB.getAll("Tasks");
     const arrayPromise = []; 
-    Tasks.forEach(task => {
-      if (task.boardId === boardId) {
-        arrayPromise.push(MemoryDB.deleteById(task.id, "Tasks"));
-      }      
+    Tasks.filter(task => task.boardId === boardId).forEach(task => {
+        arrayPromise.push(MemoryDB.deleteById(task.id, "Tasks"));   
     });
     return Promise.all(arrayPromise);
   }

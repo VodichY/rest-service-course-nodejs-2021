@@ -10,8 +10,19 @@ const createUser = async (userJson) => {
   return MemoryDB.createObj(User, "Users"); 
 };
 
-const updateUser = async (userId, userJson) => MemoryDB.updateById(userId, userJson, "Users");
+const updateUser = async (userId, userJson) => MemoryDB.updateById(userId, userJson, "Users")
 
-const deleteUser = async (userId) => MemoryDB.deleteById(userId, "Users");
+const deleteUser = async (userId) => {
+  const isDeleted = MemoryDB.deleteById(userId, "Users");
+  if (isDeleted) {
+    const Tasks = await MemoryDB.getAll("Tasks");
+    Tasks.filter(task => task.userId === userId).forEach(task => {
+      Object.assign(task, { userId: null });
+    });
+    return true;
+  }
+  return isDeleted;
+} 
+
 
 module.exports = { getAll, getUserById, createUser, updateUser, deleteUser};
