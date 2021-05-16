@@ -14,18 +14,24 @@ const Data = {
     return obj;
   };  
 
-  const updateObj = async (id, objJson, objType) => {    
+  const updateObj = async (obj, objJson) => Object.assign(obj, objJson);
+
+  const updateById = async (id, objJson, objType) => {    
     const obj = await getById(id, objType);  
-    return Object.assign(obj, objJson); 
+    return updateObj(obj, objJson, objType); 
   }; 
 
-  const deleteObj = async (id, objType) => {    
-    const obj = Data[objType].find(elem => elem.id === id);
+  const deleteObj = async (obj, objType) => {    
     const indexObj = Data[objType].indexOf(obj);
     if (indexObj === -1) {
       return false;
     }
     return Data[objType].splice(indexObj,1) instanceof Array;
+  };  
+
+  const deleteById = async (id, objType) => {    
+    const obj = Data[objType].find(elem => elem.id === id);
+    return deleteObj(obj, objType);
   }; 
 
-  module.exports = { Data, getAll, getById, createObj, updateObj, deleteObj };
+  module.exports = { Data, getAll, getById, createObj, updateObj,  updateById, deleteById, deleteObj };

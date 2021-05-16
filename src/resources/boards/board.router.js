@@ -8,7 +8,11 @@ router.route('/').get(async (req, res) => {
 
 router.route('/:boardId').get(async (req, res) => {
   const board = await boardsService.getBoardById(req.params.boardId);
-  res.status(200).json(board);
+  if (board) {
+    res.status(200).json(board);
+  } else {
+    res.status(404).json([]);
+  }
 });
 
 router.route('/').post(async (req, res) => {
