@@ -1,8 +1,12 @@
-const uuid = require('uuid');
+import { IObjectId } from "../../common/memoryDB";
+import { v1 } from 'uuid';
 
-class Board {
+export class Board implements IObjectId {
+  id: string;
+  title: string;
+  columns: object[];
   constructor({
-    id = uuid.v1(),
+    id = v1(),
     title = 'title',
     columns = []
   } = {}) {
