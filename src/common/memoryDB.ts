@@ -1,37 +1,47 @@
-const Data = {
-    'Boards': [],
-    'Columns': [],
-    'Tasks': [],
-    'Users': []
-  };
+interface IDB {
+  [key: string]: IObjectId[];
+}
+export interface IObjectId {
+  id: string;
+}
+const Data: IDB = {
+  'Boards': [],
+  'Columns': [],
+  'Tasks': [],
+  'Users': []
+};
 
-  const getAll = async (objType) => Data[objType];
+const getAll = async (objType: string) => Data[objType];
 
-  const getById = async (id, objType) => Data[objType].find(elem => elem.id === id);
+const getById = async (id: string, objType: string) => Data[objType]?.find((elem: IObjectId) => elem.id === id);
 
-  const createObj = async (obj, objType) => {    
-    Data[objType].push(obj); 
-    return obj;
-  };  
+const createObj = async (obj: IObjectId, objType: string) => {
+  Data[objType]?.push(obj);
+  return obj;
+};
 
-  const updateObj = async (obj, objJson) => Object.assign(obj, objJson);
+const updateObj = async (obj: IObjectId, objJson: string) => Object.assign(obj, objJson);
 
-  const updateById = async (id, objJson, objType) => {    
-    const obj = await getById(id, objType);  
-    return updateObj(obj, objJson, objType); 
-  }; 
+const updateById = async (id: string, objJson: string, objType: string) => {
+  const obj = await getById(id, objType) as IObjectId;
+  return updateObj(obj, objJson);
+};
 
-  const deleteObj = async (obj, objType) => {    
-    const indexObj = Data[objType].indexOf(obj);
-    if (indexObj === -1) {
-      return false;
-    }
-    return Data[objType].splice(indexObj,1) instanceof Array;
-  };  
+const deleteObj = async (obj: IObjectId, objType: string) => {
+  let objs = Data[objType];
+  if (objs === undefined) {
+    return false;
+  }
+  const indexObj = objs.indexOf(obj);
+  if (indexObj === -1 || indexObj === undefined) {
+    return false;
+  }
+  return objs.splice(indexObj, 1) instanceof Array;
+};
 
-  const deleteById = async (id, objType) => {    
-    const obj = Data[objType].find(elem => elem.id === id);
-    return deleteObj(obj, objType);
-  }; 
+const deleteById = async (id: string, objType: string) => {
+  const obj = Data[objType]?.find((elem: IObjectId) => elem.id === id) as IObjectId;
+  return deleteObj(obj, objType);
+};
 
-  module.exports = { Data, getAll, getById, createObj, updateObj,  updateById, deleteById, deleteObj };
+module.exports = { Data, getAll, getById, createObj, updateObj, updateById, deleteById, deleteObj };
