@@ -6,7 +6,7 @@ const getAllBoardsRep = async () => MemoryDB.getAll("Boards");
 
 const getBoardByIdRep = async (boardId: string) => MemoryDB.getById(boardId, "Boards");
 
-const createBoardRep = async (boardJson: object) => {
+const createBoardRep = async (boardJson: { [key: string]: string }) => {
   const board = new Board(boardJson);
   return MemoryDB.createObj(board, "Boards");
 };
@@ -26,4 +26,4 @@ const deleteBoardRep = async (boardId: string) => {
   return isDeleted;
 }
 
-module.exports = { getAll: getAllBoardsRep, getBoardById: getBoardByIdRep, createBoard: createBoardRep, updateBoard: updateBoardRep, deleteBoard: deleteBoardRep };
+export { getAllBoardsRep, getBoardByIdRep, createBoardRep, updateBoardRep, deleteBoardRep };

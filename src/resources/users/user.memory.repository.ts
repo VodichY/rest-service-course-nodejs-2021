@@ -6,7 +6,7 @@ const getAllUsersRep = async () => MemoryDB.getAll("Users");
 
 const getUserByIdRep = async (userId: string) => MemoryDB.getById(userId, "Users");
 
-const createUserRep = async (userJson: object) => {
+const createUserRep = async (userJson: { [key: string]: string }) => {
   const user = new User(userJson);
   return MemoryDB.createObj(user, "Users");
 };
@@ -26,4 +26,4 @@ const deleteUserRep = async (userId: string) => {
 }
 
 
-module.exports = { getAll: getAllUsersRep, getUserById: getUserByIdRep, createUser: createUserRep, updateUser: updateUserRep, deleteUser: deleteUserRep };
+export { getAllUsersRep, getUserByIdRep, createUserRep, updateUserRep, deleteUserRep };

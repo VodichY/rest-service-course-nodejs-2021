@@ -7,7 +7,7 @@ const getAllTasksRep = async (boardId: string) => MemoryDB.getAll("Tasks")
 const getTaskByIdRep = async (boardId: string, taskId: string) => MemoryDB.getById(taskId, "Tasks")
   .then((task: MemoryDB.IObjectId | undefined) => (task instanceof Task && task.boardId === boardId) ? task : undefined);
 
-const createTaskRep = async (taskJson: object, boardId: string) => {
+const createTaskRep = async (taskJson: { [key: string]: string }, boardId: string) => {
   const task = new Task(taskJson);
   task.boardId = boardId;
   return MemoryDB.createObj(task, "Tasks");
@@ -23,4 +23,4 @@ const deleteTaskRep = async (boardId: string, taskId: string) => {
   return MemoryDB.deleteObj(obj, "Tasks");
 }
 
-module.exports = { getAll: getAllTasksRep, getTaskById: getTaskByIdRep, createTask: createTaskRep, updateTask: updateTaskRep, deleteTask: deleteTaskRep };
+export { getAllTasksRep, getTaskByIdRep, createTaskRep, updateTaskRep, deleteTaskRep };

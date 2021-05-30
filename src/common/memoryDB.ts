@@ -20,7 +20,7 @@ const createObj = async (obj: IObjectId, objType: string) => {
   return obj;
 };
 
-const updateObj = async (obj: IObjectId, objJson: string) => Object.assign(obj, objJson);
+const updateObj = async (obj: IObjectId, objJson: string) => Object.assign(obj, objJson) as IObjectId;
 
 const updateById = async (id: string, objJson: string, objType: string) => {
   const obj = await getById(id, objType) as IObjectId;

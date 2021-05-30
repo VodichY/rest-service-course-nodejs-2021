@@ -6,7 +6,7 @@ export class Board implements IObjectId {
 
   title: string;
 
-  columns: object[];
+  columns: { order: number, title: string }[];
 
   constructor({
     id = v1(),
