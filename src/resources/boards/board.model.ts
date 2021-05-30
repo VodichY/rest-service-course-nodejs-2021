@@ -1,10 +1,13 @@
-import { IObjectId } from "../../common/memoryDB";
 import { v1 } from 'uuid';
+import { IObjectId } from "../../common/memoryDB";
 
 export class Board implements IObjectId {
   id: string;
+
   title: string;
+
   columns: object[];
+
   constructor({
     id = v1(),
     title = 'title',
@@ -16,4 +19,4 @@ export class Board implements IObjectId {
   }
 }
 
-module.exports = Board;
+

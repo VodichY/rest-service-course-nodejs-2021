@@ -1,5 +1,7 @@
-const tasksService = require('./task.service');
 import { Request, Response, Router } from "express";
+
+const tasksService = require('./task.service');
+
 const router = Router({ mergeParams: true });
 
 router.route('/').get(async (req: Request, res: Response) => {
@@ -35,4 +37,4 @@ router.route('/:taskId').delete(async (req: Request, res: Response) => {
   }
 });
 
-module.exports = router;
+export { router };

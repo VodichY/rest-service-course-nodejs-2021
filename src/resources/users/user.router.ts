@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
+import { User } from "./user.model";
 
 const router = require('express').Router();
-const User = require('./user.model');
 const usersService = require('./user.service');
 
 router.route('/').get(async (_req: Request, res: Response) => {
@@ -33,4 +33,4 @@ router.route('/:userId').delete(async (req: Request, res: Response) => {
   }
 });
 
-module.exports = router;
+export { router };

@@ -1,23 +1,23 @@
-const UserModel = require("./user.model")
-const MemoryDB = require("../../common/memoryDB");
 import { Task } from '../tasks/task.model';
+import { User } from './user.model';
+import * as MemoryDB from "../../common/memoryDB";
 
 const getAllUsersRep = async () => MemoryDB.getAll("Users");
 
 const getUserByIdRep = async (userId: string) => MemoryDB.getById(userId, "Users");
 
-const createUserRep = async (userJson: string) => {
-  const User = new UserModel(userJson);
-  return MemoryDB.createObj(User, "Users");
+const createUserRep = async (userJson: object) => {
+  const user = new User(userJson);
+  return MemoryDB.createObj(user, "Users");
 };
 
 const updateUserRep = async (userId: string, userJson: string) => MemoryDB.updateById(userId, userJson, "Users")
 
 const deleteUserRep = async (userId: string) => {
-  const isDeleted = MemoryDB.deleteById(userId, "Users");
+  const isDeleted = await MemoryDB.deleteById(userId, "Users");
   if (isDeleted) {
     const Tasks = await MemoryDB.getAll("Tasks");
-    Tasks.filter((task: Task) => task.userId === userId).forEach((task: Task) => {
+    Tasks.filter((task: MemoryDB.IObjectId) => task instanceof Task && task.userId === userId).forEach((task: MemoryDB.IObjectId) => {
       Object.assign(task, { userId: null });
     });
     return true;

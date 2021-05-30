@@ -1,6 +1,8 @@
-//const router = require('express').Router();
-const boardsService = require('./board.service');
+// const router = require('express').Router();
 import { Request, Response, Router } from "express";
+
+const boardsService = require('./board.service');
+
 const router = Router();
 
 router.route('/').get(async (_req: Request, res: Response) => {
@@ -36,4 +38,4 @@ router.route('/:boardId').delete(async (req: Request, res: Response) => {
   }
 });
 
-module.exports = router;
+export { router };

@@ -11,7 +11,7 @@ const Data: IDB = {
   'Users': []
 };
 
-const getAll = async (objType: string) => Data[objType];
+const getAll = async (objType: string) => Data[objType] as IObjectId[];
 
 const getById = async (id: string, objType: string) => Data[objType]?.find((elem: IObjectId) => elem.id === id);
 
@@ -28,7 +28,7 @@ const updateById = async (id: string, objJson: string, objType: string) => {
 };
 
 const deleteObj = async (obj: IObjectId, objType: string) => {
-  let objs = Data[objType];
+  const objs = Data[objType];
   if (objs === undefined) {
     return false;
   }
@@ -44,4 +44,4 @@ const deleteById = async (id: string, objType: string) => {
   return deleteObj(obj, objType);
 };
 
-module.exports = { Data, getAll, getById, createObj, updateObj, updateById, deleteById, deleteObj };
+export { Data, getAll, getById, createObj, updateObj, updateById, deleteById, deleteObj };

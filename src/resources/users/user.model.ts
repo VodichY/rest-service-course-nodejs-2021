@@ -4,9 +4,13 @@ import { IObjectId } from '../../common/memoryDB'
 
 export class User implements IObjectId {
   id: string;
+
   name: string;
+
   login: string;
+
   password: string;
+
   constructor({
     id = v1(),
     name = 'USER',
@@ -24,5 +28,3 @@ export class User implements IObjectId {
     return { id, name, login };
   }
 }
-
-module.exports = User;
