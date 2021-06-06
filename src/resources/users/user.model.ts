@@ -1,8 +1,18 @@
-const uuid = require('uuid');
+import { v1 } from 'uuid';
+import { IObjectId } from '../../common/memoryDB'
 
-class User {
+
+export class User implements IObjectId {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   constructor({
-    id = uuid.v1(),
+    id = v1(),
     name = 'USER',
     login = 'user',
     password = 'P@55w0rd'
@@ -13,10 +23,8 @@ class User {
     this.password = password;
   }
 
-  static toResponse(user) {
+  static toResponse(user: User) {
     const { id, name, login } = user;
     return { id, name, login };
   }
 }
-
-module.exports = User;

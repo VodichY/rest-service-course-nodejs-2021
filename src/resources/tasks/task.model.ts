@@ -1,8 +1,23 @@
-const uuid = require('uuid');
+import { v1 } from 'uuid';
+import { IObjectId } from "../../common/memoryDB";
 
-class Task {
+export class Task implements IObjectId {
+  id: string;
+
+  title: string;
+
+  order: number;
+
+  description: string;
+
+  userId: string;
+
+  boardId: string;
+
+  columnId: string;
+
   constructor({
-    id = uuid.v1(),
+    id = v1(),
     title = 'title',
     order = 0,
     description = '',
@@ -19,5 +34,3 @@ class Task {
     this.columnId = columnId;
   }
 }
-
-module.exports = Task;
